@@ -1,5 +1,7 @@
 package com.si.activities.server.domain;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Date;
 
 import jakarta.persistence.Column;
@@ -35,8 +37,8 @@ public class Activity {
 
   @Transient
   public boolean getIsActive() {
-    Date currentDate = new Date();
+    Date currentDate = Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant());
 
-    return (endDate != null && currentDate.before(endDate));
+    return (endDate != null && currentDate.compareTo(endDate) <= 0);
   }
 }
