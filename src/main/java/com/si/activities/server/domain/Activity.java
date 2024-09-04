@@ -10,6 +10,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Transient;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 @Entity
@@ -20,12 +21,14 @@ public class Activity {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
 
+  @NotBlank
   @Column(nullable = false)
   private String name;
 
   @Column
   private String description;
 
+  @NotBlank
   @Column(nullable = false)
   private String subject;
 
