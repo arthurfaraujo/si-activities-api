@@ -5,9 +5,11 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.si.activities.server.domain.Activity;
+import com.si.activities.server.domain.Subject;
 import com.si.activities.server.dtos.ActivityRequest;
 import com.si.activities.server.dtos.ActivityResponse;
 import com.si.activities.server.repositories.ActivityRepository;
+import com.si.activities.server.repositories.SubjectRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -15,6 +17,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ActivityService {
   private final ActivityRepository repo;
+  private final SubjectRepository subjectRepo;
 
   public ActivityResponse getById(Integer id) {
     Activity activity = repo.getReferenceById(id);
@@ -23,7 +26,7 @@ public class ActivityService {
         id,
         activity.getName(),
         activity.getDescription(),
-        activity.getSubject(),
+        activity.getSubject().getId(),
         activity.getStartDate(),
         activity.getEndDate(),
         activity.getIsActive());
@@ -34,7 +37,7 @@ public class ActivityService {
         activity.getId(),
         activity.getName(),
         activity.getDescription(),
-        activity.getSubject(),
+        activity.getSubject().getId(),
         activity.getStartDate(),
         activity.getEndDate(),
         activity.getIsActive())).toList();
@@ -44,9 +47,11 @@ public class ActivityService {
     Activity activity = new Activity();
     activity.setName(newActivity.name());
     activity.setDescription(newActivity.description());
-    activity.setSubject(newActivity.subject());
     activity.setStartDate(newActivity.startDate());
     activity.setEndDate(newActivity.endDate());
+    
+    Subject subject = subjectRepo.getReferenceById(newActivity.subject_id());
+    activity.setSubject(subject);
 
     repo.save(activity);
 
