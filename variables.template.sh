@@ -1,0 +1,7 @@
+export DB_TEST_URL=""
+
+export DB_TEST_USERNAME=""
+
+export DB_TEST_PASSWORD=""
+
+export SPRING_PROFILES_ACTIVE=""
