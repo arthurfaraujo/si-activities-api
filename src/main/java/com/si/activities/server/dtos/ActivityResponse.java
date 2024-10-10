@@ -8,7 +8,7 @@ public record ActivityResponse(
     Integer id,
     String name,
     String description,
-    Integer subject_id,
+    Integer subjectId,
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy", timezone = "America/Sao_Paulo") Date startDate,
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy", timezone = "America/Sao_Paulo") Date endDate,
     boolean isActive) {
