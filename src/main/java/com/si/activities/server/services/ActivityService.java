@@ -50,7 +50,7 @@ public class ActivityService {
     activity.setStartDate(newActivity.startDate());
     activity.setEndDate(newActivity.endDate());
     
-    Subject subject = subjectRepo.getReferenceById(newActivity.subject_id());
+    Subject subject = subjectRepo.getReferenceById(newActivity.subjectId());
     activity.setSubject(subject);
 
     repo.save(activity);
