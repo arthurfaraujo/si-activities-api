@@ -31,10 +31,11 @@ public class Course {
       CascadeType.PERSIST,
       CascadeType.MERGE
   })
-  @JoinTable(name = "course_period",
+  @JoinTable(
+      name = "course_period",
       joinColumns = @JoinColumn(name = "course_id"),
       inverseJoinColumns = @JoinColumn(name = "period_id"))
-  private Set<Period> periods = new HashSet<>();
+  private Set<Period> periods;
 
   public void addPeriod(Period per) {
     periods.add(per);

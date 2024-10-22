@@ -21,9 +21,9 @@ public class Period {
   private Integer id;
 
   @NotBlank
-  @Column
+  @Column(unique = true)
   private String description;
 
   @ManyToMany(mappedBy = "periods")
-  private Set<Course> courses = new HashSet<>();
+  private Set<Course> courses;
 }
