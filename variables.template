@@ -1,3 +1,5 @@
+# Linux #
+
 export DB_TEST_URL=""
 
 export DB_TEST_USERNAME=""
@@ -5,3 +7,9 @@ export DB_TEST_USERNAME=""
 export DB_TEST_PASSWORD=""
 
 export SPRING_PROFILES_ACTIVE=""
+
+# Windows #
+$env:DB_TEST_URL = ""
+$env:DB_TEST_USERNAME = ""
+$env:DB_TEST_PASSWORD = ""
+$env:SPRING_PROFILES_ACTIVE = ""
