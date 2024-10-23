@@ -14,19 +14,12 @@ import java.util.Set;
 @RequiredArgsConstructor
 public class CourseMapper {
 
-  private final PeriodMapper periodMapper;
-
   public CourseResponse toDTO(Course c) {
     if (c == null) {
       return null;
     }
-    Set<Period> periods = new HashSet<>();
 
-    for (com.si.activities.server.domain.Period p : c.getPeriods()) {
-      periods.add(periodMapper.toDTO(p));
-    }
-
-    return new CourseResponse(c.getId(), c.getName(), periods);
+    return new CourseResponse(c.getId(), c.getName(), c.getPeriodsTotal());
   }
 
   public Course toEntity(CourseRequest cr) {
@@ -36,14 +29,7 @@ public class CourseMapper {
 
     Course c = new Course();
     c.setName(cr.name());
-
-    Set<com.si.activities.server.domain.Period> periods = new HashSet<>();
-
-    for (Period p : cr.periods()) {
-      periods.add(periodMapper.toEntity(p));
-    }
-    c.setPeriods(periods);
-
+    c.setPeriodsTotal(cr.periodsTotal());
     return c;
   }
 }

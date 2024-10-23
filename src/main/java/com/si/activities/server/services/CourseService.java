@@ -5,9 +5,7 @@ import com.si.activities.server.dtos.CourseRequest;
 import com.si.activities.server.dtos.CourseResponse;
 import com.si.activities.server.dtos.mapper.CourseMapper;
 import com.si.activities.server.repositories.CourseRepository;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.Hibernate;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

@@ -1,8 +1,7 @@
 package com.si.activities.server.dtos;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Positive;
 
-import java.util.Set;
-
-public record CourseRequest(@NotBlank String name, Set<Period> periods) {
+public record CourseRequest(@NotBlank String name, @Positive Integer periodsTotal) {
 }

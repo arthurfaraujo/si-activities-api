@@ -1,15 +1,12 @@
 package com.si.activities.server.domain;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 @Entity
 @Data
+// TODO add course and period to subject
 public class Subject {
 
   @Id
@@ -19,4 +16,11 @@ public class Subject {
   @NotBlank
   @Column(nullable = false, unique = true)
   private String name;
+
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "course_id", nullable = false)
+  private Course course;
+
+  @Column(nullable = false)
+  private Integer period;
 }
