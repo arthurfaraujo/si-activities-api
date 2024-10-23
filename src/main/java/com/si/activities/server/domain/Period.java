@@ -7,13 +7,19 @@ import jakarta.persistence.Column;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.GenerationType;
 import jakarta.validation.constraints.NotBlank;
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Data
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Period {
 
   @Id

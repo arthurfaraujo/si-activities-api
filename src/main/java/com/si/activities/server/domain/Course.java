@@ -10,13 +10,16 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.CascadeType;
 import jakarta.validation.constraints.NotBlank;
-import lombok.Data;
+import lombok.*;
 
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Data
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Course {
 
   @Id
