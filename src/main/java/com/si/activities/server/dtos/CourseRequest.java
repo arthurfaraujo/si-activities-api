@@ -1,6 +1,5 @@
 package com.si.activities.server.dtos;
 
-import com.si.activities.server.domain.Period;
 import jakarta.validation.constraints.NotBlank;
 
 import java.util.Set;
