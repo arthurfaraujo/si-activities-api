@@ -2,6 +2,8 @@ package com.si.activities.server.services;
 
 import java.util.List;
 
+import com.si.activities.server.dtos.mapper.ActivityMapper;
+import com.si.activities.server.dtos.mapper.SubjectMapper;
 import org.springframework.stereotype.Service;
 
 import com.si.activities.server.domain.Activity;
@@ -18,43 +20,19 @@ import lombok.RequiredArgsConstructor;
 public class ActivityService {
   private final ActivityRepository repo;
   private final SubjectRepository subjectRepo;
+  private final ActivityMapper activityMapper;
 
   public ActivityResponse getById(Integer id) {
     Activity activity = repo.getReferenceById(id);
 
-    return new ActivityResponse(
-        id,
-        activity.getName(),
-        activity.getDescription(),
-        activity.getSubject().getId(),
-        activity.getStartDate(),
-        activity.getEndDate(),
-        activity.getIsActive());
+    return activityMapper.toDTO(activity);
   }
 
   public List<ActivityResponse> getAll() {
-    return repo.findAll().stream().map(activity -> new ActivityResponse(
-        activity.getId(),
-        activity.getName(),
-        activity.getDescription(),
-        activity.getSubject().getId(),
-        activity.getStartDate(),
-        activity.getEndDate(),
-        activity.getIsActive())).toList();
+    return repo.findAll().stream().map(activityMapper::toDTO).toList();
   }
 
   public Integer create(ActivityRequest newActivity) {
-    Activity activity = new Activity();
-    activity.setName(newActivity.name());
-    activity.setDescription(newActivity.description());
-    activity.setStartDate(newActivity.startDate());
-    activity.setEndDate(newActivity.endDate());
-    
-    Subject subject = subjectRepo.getReferenceById(newActivity.subjectId());
-    activity.setSubject(subject);
-
-    repo.save(activity);
-
-    return activity.getId();
+    return repo.save(activityMapper.toEntity(newActivity)).getId();
   }
 }

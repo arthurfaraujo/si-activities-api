@@ -28,7 +28,7 @@ public class CourseController {
   }
 
   @PostMapping
-  public Integer create(CourseRequest course) {
+  public Integer create(@RequestBody CourseRequest course) {
     return serv.create(course);
   }
 }
