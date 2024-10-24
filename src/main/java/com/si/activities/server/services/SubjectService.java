@@ -2,6 +2,7 @@ package com.si.activities.server.services;
 
 import java.util.List;
 
+import com.si.activities.server.domain.Subject;
 import com.si.activities.server.dtos.SubjectDTO;
 import com.si.activities.server.dtos.mapper.SubjectMapper;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,10 @@ public class SubjectService {
 
   public SubjectDTO getById(Integer id) {
     return subjectMapper.toDTO(repo.getReferenceById(id));
+  }
+
+  public Subject getEntityById(Integer id) {
+    return repo.getReferenceById(id);
   }
 
   public List<SubjectDTO> getAll() {

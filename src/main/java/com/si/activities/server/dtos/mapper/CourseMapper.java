@@ -3,15 +3,9 @@ package com.si.activities.server.dtos.mapper;
 import com.si.activities.server.domain.Course;
 import com.si.activities.server.dtos.CourseRequest;
 import com.si.activities.server.dtos.CourseResponse;
-import com.si.activities.server.dtos.Period;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import java.util.HashSet;
-import java.util.Set;
-
 @Component
-@RequiredArgsConstructor
 public class CourseMapper {
 
   public CourseResponse toDTO(Course c) {
