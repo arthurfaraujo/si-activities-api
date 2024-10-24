@@ -19,7 +19,7 @@ public class CourseMapper {
       return null;
     }
 
-    return new CourseResponse(c.getId(), c.getName(), c.getPeriodsTotal());
+    return new CourseResponse(c.getId(), c.getName(), c.getPeriodsNumber());
   }
 
   public Course toEntity(CourseRequest cr) {
@@ -29,7 +29,7 @@ public class CourseMapper {
 
     Course c = new Course();
     c.setName(cr.name());
-    c.setPeriodsTotal(cr.periodsTotal());
+    c.setPeriodsNumber(cr.periodsNumber());
     return c;
   }
 }

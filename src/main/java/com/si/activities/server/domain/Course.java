@@ -24,7 +24,7 @@ public class Course {
   private String name;
 
   @Column(nullable = false)
-  private Integer periodsTotal;
+  private Integer periodsNumber;
 
 
 }

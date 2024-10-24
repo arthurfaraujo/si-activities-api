@@ -21,6 +21,10 @@ public class CourseService {
     return courseMapper.toDTO(course);
   }
 
+  public Course getEntityById(Integer id) {
+    return repo.getReferenceById(id);
+  }
+
   public List<CourseResponse> getAll() {
     return repo.findAll().stream().map(courseMapper::toDTO).toList();
   }
