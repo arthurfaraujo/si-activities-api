@@ -18,6 +18,7 @@ import lombok.Data;
 
 @Entity
 @Data
+// TODO add activity mapper
 public class Activity {
 
   @Id

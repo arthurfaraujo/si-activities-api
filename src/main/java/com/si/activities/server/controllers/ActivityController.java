@@ -33,11 +33,7 @@ public class ActivityController {
   @GetMapping("/{id}")
   public ActivityResponse getById(@PathVariable @NotNull Integer id) {
     
-    try {
-      return service.getById(id);      
-    } catch (EntityNotFoundException e) {
-      throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Activity Not Found", e);
-    }
+    return service.getById(id);
   }
 
   @GetMapping
