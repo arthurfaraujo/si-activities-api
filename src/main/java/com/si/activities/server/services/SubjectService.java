@@ -20,6 +20,7 @@ import org.springframework.web.server.ResponseStatusException;
 public class SubjectService {
   private final SubjectRepository repo;
   private final SubjectMapper subjectMapper;
+  private final CourseService courseService;
 
   public SubjectResponse getById(Integer id) {
     return repo.findById(id).map(subjectMapper::toDTO).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Subject not found"));
@@ -33,7 +34,10 @@ public class SubjectService {
     return repo.findAll().stream().map(subjectMapper::toDTO).toList();
   }
 
-  public Integer create(SubjectRequest subject) {
-    return repo.save(subjectMapper.toEntity(subject)).getId();
+  public Integer create(SubjectRequest subject) throws ResponseStatusException {
+    if (subject.period() > 0 && subject.period() <= courseService.getPeriodsNumberById(subject.courseId())) {
+      return repo.save(subjectMapper.toEntity(subject)).getId();
+    }
+    throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Period bigger than selected course number of periods");
   }
 }
