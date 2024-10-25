@@ -34,8 +34,14 @@ public class SubjectController {
   @GetMapping
   public List<SubjectResponse> getAll() {
     return service.getAll();
+
   }
-  
+
+  @GetMapping("/course/{id}")
+  public List<SubjectResponse> getAllByCourseId(@PathVariable Integer id) {
+    return service.getAllByCourseId(id);
+  }
+
   @PostMapping
   @ResponseStatus(code = HttpStatus.CREATED)
   public Integer create(@RequestBody @Valid SubjectRequest subject) {

@@ -10,6 +10,7 @@ import com.si.activities.server.domain.Subject;
 import java.util.List;
 
 public interface SubjectRepository extends JpaRepository<Subject, Integer> {
+  List<Subject> findAllByCourseId(Integer courseId);
   
   @Query("select a from Activity a where a.subject.id = :subjectId")
   List<Activity> findActivitiesBySubjectId(@Param("subjectId") Integer subjectId);

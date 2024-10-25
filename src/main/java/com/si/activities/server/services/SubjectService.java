@@ -34,6 +34,10 @@ public class SubjectService {
     return repo.findAll().stream().map(subjectMapper::toDTO).toList();
   }
 
+  public List<SubjectResponse> getAllByCourseId(Integer id) {
+    return repo.findAllByCourseId(id).stream().map(subjectMapper::toDTO).toList();
+  }
+
   public Integer create(SubjectRequest subject) throws ResponseStatusException {
     if (subject.period() > 0 && subject.period() <= courseService.getPeriodsNumberById(subject.courseId())) {
       return repo.save(subjectMapper.toEntity(subject)).getId();
