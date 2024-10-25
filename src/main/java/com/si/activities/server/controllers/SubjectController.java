@@ -3,6 +3,7 @@ package com.si.activities.server.controllers;
 import java.util.List;
 
 import com.si.activities.server.dtos.SubjectRequest;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -37,7 +38,7 @@ public class SubjectController {
   
   @PostMapping
   @ResponseStatus(code = HttpStatus.CREATED)
-  public Integer create(@RequestBody SubjectRequest subject) {
+  public Integer create(@RequestBody @Valid SubjectRequest subject) {
     return service.create(subject);
   }
 }
