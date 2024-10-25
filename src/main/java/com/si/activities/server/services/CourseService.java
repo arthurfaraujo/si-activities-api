@@ -24,6 +24,10 @@ public class CourseService {
     return repo.findById(id).map(courseMapper::toDTO).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Course not found"));
   }
 
+  protected Integer getPeriodsNumberById(Integer id) {
+    return repo.findPeriodsNumberById(id);
+  }
+
   public Course getEntityById(Integer id) {
     return repo.getReferenceById(id);
   }

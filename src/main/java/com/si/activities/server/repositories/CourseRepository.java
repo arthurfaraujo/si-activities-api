@@ -12,4 +12,7 @@ import java.util.Set;
 public interface CourseRepository extends JpaRepository<Course, Integer> {
   @Query("select s from Subject s where s.course.id = :courseId")
   Set<Subject> findSubjectsByCourseId(@Param("courseId") Integer id);
+
+  @Query("select periodsNumber from Course where id = :id")
+  Integer findPeriodsNumberById(@Param("id") Integer id);
 }
