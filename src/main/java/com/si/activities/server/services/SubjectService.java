@@ -3,13 +3,17 @@ package com.si.activities.server.services;
 import java.util.List;
 
 import com.si.activities.server.domain.Subject;
-import com.si.activities.server.dtos.SubjectDTO;
+import com.si.activities.server.dtos.SubjectRequest;
+import com.si.activities.server.dtos.SubjectResponse;
 import com.si.activities.server.dtos.mapper.SubjectMapper;
+import jakarta.persistence.EntityNotFoundException;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import com.si.activities.server.repositories.SubjectRepository;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.server.ResponseStatusException;
 
 @Service
 @RequiredArgsConstructor
@@ -17,19 +21,19 @@ public class SubjectService {
   private final SubjectRepository repo;
   private final SubjectMapper subjectMapper;
 
-  public SubjectDTO getById(Integer id) {
-    return subjectMapper.toDTO(repo.getReferenceById(id));
+  public SubjectResponse getById(Integer id) {
+    return repo.findById(id).map(subjectMapper::toDTO).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Subject not found"));
   }
 
   public Subject getEntityById(Integer id) {
     return repo.getReferenceById(id);
   }
 
-  public List<SubjectDTO> getAll() {
+  public List<SubjectResponse> getAll() {
     return repo.findAll().stream().map(subjectMapper::toDTO).toList();
   }
 
-  public Integer create(SubjectDTO subject) {
+  public Integer create(SubjectRequest subject) {
     return repo.save(subjectMapper.toEntity(subject)).getId();
   }
 }

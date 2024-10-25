@@ -2,7 +2,8 @@ package com.si.activities.server.dtos.mapper;
 
 import com.si.activities.server.domain.Course;
 import com.si.activities.server.domain.Subject;
-import com.si.activities.server.dtos.SubjectDTO;
+import com.si.activities.server.dtos.SubjectRequest;
+import com.si.activities.server.dtos.SubjectResponse;
 import com.si.activities.server.services.CourseService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -12,15 +13,15 @@ import org.springframework.stereotype.Component;
 public class SubjectMapper {
   private final CourseService courseService;
 
-  public SubjectDTO toDTO(Subject s) {
+  public SubjectResponse toDTO(Subject s) {
     if (s == null) {
       return null;
     }
 
-    return new SubjectDTO(s.getId(), s.getName(), s.getPeriod(), s.getCourse().getId());
+    return new SubjectResponse(s.getId(), s.getName(), s.getPeriod(), s.getCourse().getName());
   }
 
-  public Subject toEntity(SubjectDTO sd) {
+  public Subject toEntity(SubjectRequest sd) {
     if (sd == null) {
       return null;
     }

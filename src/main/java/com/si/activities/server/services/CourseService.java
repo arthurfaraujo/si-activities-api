@@ -1,12 +1,16 @@
 package com.si.activities.server.services;
 
+import com.si.activities.server.domain.Activity;
 import com.si.activities.server.domain.Course;
 import com.si.activities.server.dtos.CourseRequest;
 import com.si.activities.server.dtos.CourseResponse;
 import com.si.activities.server.dtos.mapper.CourseMapper;
 import com.si.activities.server.repositories.CourseRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -17,8 +21,7 @@ public class CourseService {
   private final CourseMapper courseMapper;
 
   public CourseResponse getById(Integer id) {
-    Course course = repo.getReferenceById(id);
-    return courseMapper.toDTO(course);
+    return repo.findById(id).map(courseMapper::toDTO).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Course not found"));
   }
 
   public Course getEntityById(Integer id) {

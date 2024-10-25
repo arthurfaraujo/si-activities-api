@@ -5,6 +5,7 @@ import com.si.activities.server.dtos.CourseRequest;
 import com.si.activities.server.dtos.CourseResponse;
 import com.si.activities.server.dtos.mapper.CourseMapper;
 import com.si.activities.server.services.CourseService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,7 +29,7 @@ public class CourseController {
   }
 
   @PostMapping
-  public Integer create(@RequestBody CourseRequest course) {
+  public Integer create(@RequestBody @Valid CourseRequest course) {
     return serv.create(course);
   }
 }
