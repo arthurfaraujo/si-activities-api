@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -39,11 +40,7 @@ public class ControllerAdvice {
   
   @ExceptionHandler(ResponseStatusException.class)
   @ResponseStatus(HttpStatus.NOT_FOUND)
-  public Error handleResponseStatusException(ResponseStatusException e) {
-    List<String> errors = new ArrayList<>();
-
-    errors.add(e.getReason());
-
-    return new Error(errors, 404);
+  public ResponseEntity<Error> handleResponseStatusException(ResponseStatusException e) {
+    return new ResponseEntity<Error>(new Error(e.getReason(), e.getStatusCode().value()), e.getStatusCode());
   }
 }
