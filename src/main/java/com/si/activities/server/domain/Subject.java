@@ -6,7 +6,6 @@ import lombok.Data;
 
 @Entity
 @Data
-// TODO add course and period to subject
 public class Subject {
 
   @Id

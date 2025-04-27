@@ -1,4 +1,4 @@
-package com.si.activities.server.dtos;
+package com.si.activities.server.dtos.activity;
 
 import java.util.Date;
 

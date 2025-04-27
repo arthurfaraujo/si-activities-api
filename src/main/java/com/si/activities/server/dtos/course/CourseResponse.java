@@ -1,4 +1,4 @@
-package com.si.activities.server.dtos;
+package com.si.activities.server.dtos.course;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

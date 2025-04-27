@@ -1,9 +1,9 @@
 package com.si.activities.server.controllers;
 
 import com.si.activities.server.domain.Course;
-import com.si.activities.server.dtos.CourseRequest;
-import com.si.activities.server.dtos.CourseResponse;
-import com.si.activities.server.dtos.mapper.CourseMapper;
+import com.si.activities.server.dtos.course.CourseMapper;
+import com.si.activities.server.dtos.course.CourseRequest;
+import com.si.activities.server.dtos.course.CourseResponse;
 import com.si.activities.server.services.CourseService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
