@@ -47,7 +47,7 @@ public class AuthenticationController {
   @PostMapping("/signup")
   @ResponseStatus(code = HttpStatus.CREATED)
   public UserDTO signUp(@RequestBody @Valid UserDTO auth) {
-    UserDTO newUser = userService.create(auth).get();
+    UserDTO newUser = userService.create(auth);
 
     return newUser;
   }
