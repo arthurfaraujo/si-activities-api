@@ -1,7 +1,6 @@
 package com.si.activities.server.services;
 
 import java.util.HashSet;
-import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.security.core.userdetails.UserDetails;
@@ -9,6 +8,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.si.activities.server.dtos.user.UserDTO;
 import com.si.activities.server.repositories.RoleRepository;
@@ -25,7 +25,7 @@ public class UserService implements UserDetailsService {
   private final UserRepository repo;
   private final RoleRepository roleRepo;
 
-  public Optional<UserDTO> create(UserDTO newUser) {
+  public UserDTO create(UserDTO newUser) {
     if (repo.findByNickname(newUser.nickname()) != null) {
       return null;
     }
@@ -37,13 +37,17 @@ public class UserService implements UserDetailsService {
 
     User user = repo.save(new User(newUser.name(), newUser.nickname(), newUser.email(), criptPass, roles));
 
-    return Optional
-        .of(new UserDTO(user.getId(), user.getName(), user.getNickname(), user.getEmail(), user.getPassword()));
+    return new UserDTO(user.getId(), user.getName(), user.getNickname(), user.getEmail(), user.getPassword());
   }
 
   @Override
+  @Transactional
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-    return repo.findByNickname(username);
+    User user = repo.findByNickname(username);
+
+    // initialize by hand the roles property
+    user.getRoles().size();
+    return user;
   }
 
 }
