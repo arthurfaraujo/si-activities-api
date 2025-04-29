@@ -1,8 +1,7 @@
-package com.si.activities.server.dtos.mapper;
+package com.si.activities.server.dtos.course;
 
 import com.si.activities.server.domain.Course;
-import com.si.activities.server.dtos.CourseRequest;
-import com.si.activities.server.dtos.CourseResponse;
+
 import org.springframework.stereotype.Component;
 
 @Component

@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.si.activities.server.dtos.ActivityRequest;
-import com.si.activities.server.dtos.ActivityResponse;
+import com.si.activities.server.dtos.activity.ActivityRequest;
+import com.si.activities.server.dtos.activity.ActivityResponse;
 import com.si.activities.server.services.ActivityService;
 
 import jakarta.persistence.EntityNotFoundException;
