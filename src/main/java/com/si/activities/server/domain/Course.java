@@ -25,6 +25,4 @@ public class Course {
 
   @Column(nullable = false)
   private Integer periodsNumber;
-
-
 }

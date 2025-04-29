@@ -1,9 +1,7 @@
-package com.si.activities.server.dtos.mapper;
+package com.si.activities.server.dtos.activity;
 
 import com.si.activities.server.domain.Activity;
 import com.si.activities.server.domain.Subject;
-import com.si.activities.server.dtos.ActivityRequest;
-import com.si.activities.server.dtos.ActivityResponse;
 import com.si.activities.server.services.SubjectService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
