@@ -1,12 +1,10 @@
 package com.si.activities.server.services;
 
-import com.si.activities.server.domain.Activity;
 import com.si.activities.server.domain.Course;
 import com.si.activities.server.dtos.course.CourseMapper;
 import com.si.activities.server.dtos.course.CourseRequest;
 import com.si.activities.server.dtos.course.CourseResponse;
 import com.si.activities.server.repositories.CourseRepository;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;

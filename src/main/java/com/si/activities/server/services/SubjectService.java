@@ -7,7 +7,6 @@ import com.si.activities.server.dtos.subject.SubjectMapper;
 import com.si.activities.server.dtos.subject.SubjectRequest;
 import com.si.activities.server.dtos.subject.SubjectResponse;
 
-import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
