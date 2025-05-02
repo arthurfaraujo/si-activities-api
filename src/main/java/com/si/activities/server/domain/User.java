@@ -1,5 +1,6 @@
 package com.si.activities.server.domain;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
@@ -71,7 +72,9 @@ public class User implements UserDetails {
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {
     Long find = roles.stream().filter(role -> role.getDescription().equals("admin")).count();
-    List<SimpleGrantedAuthority> auths = List.of(new SimpleGrantedAuthority("ROLE_USER"));
+    List<SimpleGrantedAuthority> auths = new ArrayList<SimpleGrantedAuthority>();
+
+    auths.add(new SimpleGrantedAuthority("ROLE_USER"));
 
     if (find >= 1) {
       auths.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
