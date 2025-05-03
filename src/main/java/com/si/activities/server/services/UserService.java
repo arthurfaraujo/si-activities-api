@@ -27,7 +27,7 @@ public class UserService implements UserDetailsService {
   private final RoleRepository roleRepo;
 
   public UserResponseDTO create(UserDTO newUser) {
-    if (repo.findByNickname(newUser.nickname()) != null) {
+    if (repo.findByNickname(newUser.nickname()) != null || repo.findByEmail(newUser.email()) != null) {
       return null;
     }
 
