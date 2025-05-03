@@ -1,14 +1,12 @@
 package com.si.activities.server.controllers;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.si.activities.server.domain.User;
@@ -42,8 +40,11 @@ public class AuthenticationController {
       return ResponseEntity.badRequest().build();
     }
 
-    String token = tokenService.generateToken((User) authResp.getPrincipal());
-    return ResponseEntity.ok(new AuthenticationResponse(token));
+    User userAuth = (User) authResp.getPrincipal();
+    String token = tokenService.generateToken(userAuth);
+
+    return ResponseEntity.ok(new AuthenticationResponse(
+        new UserResponseDTO(userAuth.getId(), userAuth.getName(), userAuth.getNickname(), userAuth.getEmail()), token));
   }
 
   @PostMapping("/signup")
