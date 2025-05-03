@@ -7,13 +7,13 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.si.activities.server.domain.User;
 import com.si.activities.server.dtos.user.Authentication;
 import com.si.activities.server.dtos.user.AuthenticationResponse;
 import com.si.activities.server.dtos.user.UserDTO;
+import com.si.activities.server.dtos.user.UserResponseDTO;
 import com.si.activities.server.services.TokenService;
 import com.si.activities.server.services.UserService;
 
@@ -40,15 +40,21 @@ public class AuthenticationController {
       return ResponseEntity.badRequest().build();
     }
 
-    String token = tokenService.generateToken((User) authResp.getPrincipal());
-    return ResponseEntity.ok(new AuthenticationResponse(token));
+    User userAuth = (User) authResp.getPrincipal();
+    String token = tokenService.generateToken(userAuth);
+
+    return ResponseEntity.ok(new AuthenticationResponse(
+        new UserResponseDTO(userAuth.getId(), userAuth.getName(), userAuth.getNickname(), userAuth.getEmail()), token));
   }
 
   @PostMapping("/signup")
-  @ResponseStatus(code = HttpStatus.CREATED)
-  public UserDTO signUp(@RequestBody @Valid UserDTO auth) {
-    UserDTO newUser = userService.create(auth);
+  public ResponseEntity<UserResponseDTO> signUp(@RequestBody @Valid UserDTO auth) {
+    UserResponseDTO newUser = userService.create(auth);
 
-    return newUser;
+    if (newUser != null) {
+      return new ResponseEntity<UserResponseDTO>(newUser, HttpStatus.CREATED);
+    }
+
+    return ResponseEntity.badRequest().body(null);
   }
 }
