@@ -1,6 +1,7 @@
 package com.si.activities.server.controllers;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -14,6 +15,7 @@ import com.si.activities.server.domain.User;
 import com.si.activities.server.dtos.user.Authentication;
 import com.si.activities.server.dtos.user.AuthenticationResponse;
 import com.si.activities.server.dtos.user.UserDTO;
+import com.si.activities.server.dtos.user.UserResponseDTO;
 import com.si.activities.server.services.TokenService;
 import com.si.activities.server.services.UserService;
 
@@ -45,10 +47,13 @@ public class AuthenticationController {
   }
 
   @PostMapping("/signup")
-  @ResponseStatus(code = HttpStatus.CREATED)
-  public UserDTO signUp(@RequestBody @Valid UserDTO auth) {
-    UserDTO newUser = userService.create(auth);
+  public ResponseEntity<UserResponseDTO> signUp(@RequestBody @Valid UserDTO auth) {
+    UserResponseDTO newUser = userService.create(auth);
 
-    return newUser;
+    if (newUser != null) {
+      return new ResponseEntity<UserResponseDTO>(newUser, HttpStatus.CREATED);
+    }
+
+    return ResponseEntity.badRequest().body(null);
   }
 }
