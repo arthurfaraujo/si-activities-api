@@ -38,7 +38,7 @@ public class UserService implements UserDetailsService {
 
     User user = repo.save(new User(newUser.name(), newUser.nickname(), newUser.email(), criptPass, roles));
 
-    return new UserResponseDTO(user.getId(), user.getName(), user.getNickname(), user.getEmail());
+    return new UserResponseDTO(user.getId(), user.getName(), user.getNickname(), user.getRoles());
   }
 
   @Override

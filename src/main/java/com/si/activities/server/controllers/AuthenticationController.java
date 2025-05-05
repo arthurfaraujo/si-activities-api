@@ -44,7 +44,7 @@ public class AuthenticationController {
     String token = tokenService.generateToken(userAuth);
 
     return ResponseEntity.ok(new AuthenticationResponse(
-        new UserResponseDTO(userAuth.getId(), userAuth.getName(), userAuth.getNickname(), userAuth.getEmail()), token));
+        new UserResponseDTO(userAuth.getId(), userAuth.getName(), userAuth.getNickname(), userAuth.getRoles()), token));
   }
 
   @PostMapping("/signup")
