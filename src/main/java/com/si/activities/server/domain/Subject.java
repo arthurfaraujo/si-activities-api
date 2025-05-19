@@ -1,5 +1,10 @@
 package com.si.activities.server.domain;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
@@ -22,4 +27,8 @@ public class Subject {
 
   @Column(nullable = false)
   private Integer period;
+
+  @JsonBackReference
+  @ManyToMany(mappedBy = "subjects", fetch = FetchType.LAZY)
+  private Set<User> users = new HashSet<User>();
 }
