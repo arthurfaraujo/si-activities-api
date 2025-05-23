@@ -4,9 +4,11 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -37,9 +39,11 @@ public class Activity {
   @Column(columnDefinition = "DATE")
   private Date endDate;
   
-  @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "subject_id", nullable = false)
-  private Subject subject;
+  @JsonManagedReference
+  @ManyToOne
+  @JoinColumn(name = "class_id", nullable = false)
+  @JsonProperty("class")
+  private Class schoolClass;
 
   @Transient
   public boolean getIsActive() {
