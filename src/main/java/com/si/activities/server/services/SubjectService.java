@@ -4,8 +4,8 @@ import java.util.List;
 
 import com.si.activities.server.domain.Subject;
 import com.si.activities.server.dtos.subject.SubjectMapper;
-import com.si.activities.server.dtos.subject.SubjectRequest;
-import com.si.activities.server.dtos.subject.SubjectResponse;
+import com.si.activities.server.dtos.subject.SubjectCreateDTO;
+import com.si.activities.server.dtos.subject.SubjectDTO;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -22,7 +22,8 @@ public class SubjectService {
   private final SubjectMapper subjectMapper;
   private final CourseService courseService;
 
-  public SubjectResponse getById(Integer id) {
+  public SubjectDTO getById(Integer id) {
+    //TODO: return dedicated exception class
     return repo.findById(id).map(subjectMapper::toDTO).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Subject not found"));
   }
 
@@ -30,15 +31,15 @@ public class SubjectService {
     return repo.getReferenceById(id);
   }
 
-  public List<SubjectResponse> getAll() {
+  public List<SubjectDTO> getAll() {
     return repo.findAll().stream().map(subjectMapper::toDTO).toList();
   }
 
-  public List<SubjectResponse> getAllByCourseId(Integer id) {
+  public List<SubjectDTO> getAllByCourseId(Integer id) {
     return repo.findAllByCourseId(id).stream().map(subjectMapper::toDTO).toList();
   }
 
-  public Integer create(SubjectRequest subject) throws ResponseStatusException {
+  public Integer create(SubjectCreateDTO subject) throws ResponseStatusException {
     if (subject.period() > 0 && subject.period() <= courseService.getPeriodsNumberById(subject.courseId())) {
       return repo.save(subjectMapper.toEntity(subject)).getId();
     }

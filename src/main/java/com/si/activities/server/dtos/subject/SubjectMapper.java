@@ -11,15 +11,15 @@ import org.springframework.stereotype.Component;
 public class SubjectMapper {
   private final CourseService courseService;
 
-  public SubjectResponse toDTO(Subject s) {
+  public SubjectDTO toDTO(Subject s) {
     if (s == null) {
       return null;
     }
 
-    return new SubjectResponse(s.getId(), s.getName(), s.getPeriod(), s.getCourse().getName());
+    return new SubjectDTO(s.getId(), s.getName(), s.getPeriod(), s.getCourse().getName());
   }
 
-  public Subject toEntity(SubjectRequest sd) {
+  public Subject toEntity(SubjectCreateDTO sd) {
     if (sd == null) {
       return null;
     }
