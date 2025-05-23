@@ -10,10 +10,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.si.activities.server.domain.User;
-import com.si.activities.server.dtos.user.Authentication;
-import com.si.activities.server.dtos.user.AuthenticationResponse;
+import com.si.activities.server.dtos.user.AuthenticationTryDTO;
+import com.si.activities.server.dtos.user.AuthenticationDTO;
+import com.si.activities.server.dtos.user.UserCreateDTO;
 import com.si.activities.server.dtos.user.UserDTO;
-import com.si.activities.server.dtos.user.UserResponseDTO;
 import com.si.activities.server.services.TokenService;
 import com.si.activities.server.services.UserService;
 
@@ -30,7 +30,7 @@ public class AuthenticationController {
   private final TokenService tokenService;
 
   @PostMapping("/signin")
-  public ResponseEntity<AuthenticationResponse> signIn(@RequestBody @Valid Authentication auth) {
+  public ResponseEntity<AuthenticationDTO> signIn(@RequestBody @Valid AuthenticationTryDTO auth) {
     var authData = new UsernamePasswordAuthenticationToken(auth.nickname(), auth.password());
     org.springframework.security.core.Authentication authResp;
 
@@ -43,16 +43,16 @@ public class AuthenticationController {
     User userAuth = (User) authResp.getPrincipal();
     String token = tokenService.generateToken(userAuth);
 
-    return ResponseEntity.ok(new AuthenticationResponse(
-        new UserResponseDTO(userAuth.getId(), userAuth.getName(), userAuth.getNickname(), userAuth.getRoles()), token));
+    return ResponseEntity.ok(new AuthenticationDTO(
+        new UserDTO(userAuth.getId(), userAuth.getName(), userAuth.getNickname(), userAuth.getRoles()), token));
   }
 
   @PostMapping("/signup")
-  public ResponseEntity<UserResponseDTO> signUp(@RequestBody @Valid UserDTO auth) {
-    UserResponseDTO newUser = userService.create(auth);
+  public ResponseEntity<UserDTO> signUp(@RequestBody @Valid UserCreateDTO auth) {
+    UserDTO newUser = userService.create(auth);
 
     if (newUser != null) {
-      return new ResponseEntity<UserResponseDTO>(newUser, HttpStatus.CREATED);
+      return new ResponseEntity<UserDTO>(newUser, HttpStatus.CREATED);
     }
 
     return ResponseEntity.badRequest().body(null);

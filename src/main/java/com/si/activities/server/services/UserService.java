@@ -10,8 +10,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.si.activities.server.dtos.user.UserCreateDTO;
 import com.si.activities.server.dtos.user.UserDTO;
-import com.si.activities.server.dtos.user.UserResponseDTO;
 import com.si.activities.server.repositories.RoleRepository;
 import com.si.activities.server.repositories.UserRepository;
 import com.si.activities.server.domain.Role;
@@ -26,7 +26,7 @@ public class UserService implements UserDetailsService {
   private final UserRepository repo;
   private final RoleRepository roleRepo;
 
-  public UserResponseDTO create(UserDTO newUser) {
+  public UserDTO create(UserCreateDTO newUser) {
     if (repo.findByNickname(newUser.nickname()) != null || repo.findByEmail(newUser.email()) != null) {
       return null;
     }
@@ -38,7 +38,7 @@ public class UserService implements UserDetailsService {
 
     User user = repo.save(new User(newUser.name(), newUser.nickname(), newUser.email(), criptPass, roles));
 
-    return new UserResponseDTO(user.getId(), user.getName(), user.getNickname(), user.getRoles());
+    return new UserDTO(user.getId(), user.getName(), user.getNickname(), user.getRoles());
   }
 
   @Override

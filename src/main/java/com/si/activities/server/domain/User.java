@@ -25,7 +25,6 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -75,12 +74,8 @@ public class User implements UserDetails {
   @Column
   private Integer period;
 
-  @JsonManagedReference
-  @ManyToMany(fetch = FetchType.LAZY, cascade = {
-    CascadeType.MERGE
-  })
-  @JoinTable(name = "user_subject", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "subject_id"))
-  private Set<Subject> subjects = new HashSet<Subject>();
+  @ManyToMany(mappedBy = "users", fetch = FetchType.LAZY)
+  private Set<Class> classes = new HashSet<Class>();
 
   public User(String name, String nickname, String email, String password, Set<Role> roles) {
     this.name = name;

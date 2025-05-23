@@ -13,14 +13,14 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.si.activities.server.dtos.Error;
+import com.si.activities.server.dtos.ErrorDTO;
 
 @RestControllerAdvice
 public class ControllerAdvice {
 
   @ExceptionHandler({MethodArgumentNotValidException.class, MethodArgumentTypeMismatchException.class})
   @ResponseStatus(HttpStatus.BAD_REQUEST)
-  public Error handleArgumentNotValidException(Exception e) {
+  public ErrorDTO handleArgumentNotValidException(Exception e) {
     List<String> errors = new ArrayList<>();
 
     if (e instanceof MethodArgumentNotValidException) {
@@ -35,12 +35,12 @@ public class ControllerAdvice {
       MethodArgumentTypeMismatchException ex = (MethodArgumentTypeMismatchException) e;
       errors.add(ex.getName() + " " + "type mismatch");
     }
-    return new Error(errors, HttpStatus.BAD_REQUEST.value());
+    return new ErrorDTO(errors, HttpStatus.BAD_REQUEST.value());
   }
   
   @ExceptionHandler(ResponseStatusException.class)
   @ResponseStatus(HttpStatus.NOT_FOUND)
-  public ResponseEntity<Error> handleResponseStatusException(ResponseStatusException e) {
-    return new ResponseEntity<Error>(new Error(e.getReason(), e.getStatusCode().value()), e.getStatusCode());
+  public ResponseEntity<ErrorDTO> handleResponseStatusException(ResponseStatusException e) {
+    return new ResponseEntity<ErrorDTO>(new ErrorDTO(e.getReason(), e.getStatusCode().value()), e.getStatusCode());
   }
 }

@@ -1,6 +1,6 @@
 package com.si.activities.server.repositories;
 
-import java.util.Set;
+import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -12,7 +12,5 @@ public interface UserRepository extends JpaRepository<User, Integer> {
   
   User findByEmail(String email);
 
-  Set<User> findByCourse_Id(Integer courseId);
-
-  Set<User> findBySubjects_Id(Integer subjectId);
+  List<User> findAllByCourseId(Integer courseId);
 }
