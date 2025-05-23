@@ -1,7 +1,7 @@
 package com.si.activities.server.controllers;
 
-import com.si.activities.server.dtos.course.CourseRequest;
-import com.si.activities.server.dtos.course.CourseResponse;
+import com.si.activities.server.dtos.course.CourseCreateDTO;
+import com.si.activities.server.dtos.course.CourseDTO;
 import com.si.activities.server.services.CourseService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -17,17 +17,17 @@ public class CourseController {
   private final CourseService serv;
 
   @GetMapping
-  public List<CourseResponse> getAll() {
+  public List<CourseDTO> getAll() {
     return serv.getAll();
   }
 
   @GetMapping("/{id}")
-  public CourseResponse getCourseById(@PathVariable Integer id) {
+  public CourseDTO getCourseById(@PathVariable Integer id) {
     return serv.getById(id);
   }
 
   @PostMapping
-  public Integer create(@RequestBody @Valid CourseRequest course) {
+  public Integer create(@RequestBody @Valid CourseCreateDTO course) {
     return serv.create(course);
   }
 }

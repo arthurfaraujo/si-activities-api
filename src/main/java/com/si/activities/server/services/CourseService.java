@@ -2,8 +2,8 @@ package com.si.activities.server.services;
 
 import com.si.activities.server.domain.Course;
 import com.si.activities.server.dtos.course.CourseMapper;
-import com.si.activities.server.dtos.course.CourseRequest;
-import com.si.activities.server.dtos.course.CourseResponse;
+import com.si.activities.server.dtos.course.CourseCreateDTO;
+import com.si.activities.server.dtos.course.CourseDTO;
 import com.si.activities.server.repositories.CourseRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -18,7 +18,7 @@ public class CourseService {
   private final CourseRepository repo;
   private final CourseMapper courseMapper;
 
-  public CourseResponse getById(Integer id) {
+  public CourseDTO getById(Integer id) {
     return repo.findById(id).map(courseMapper::toDTO).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Course not found"));
   }
 
@@ -30,11 +30,11 @@ public class CourseService {
     return repo.getReferenceById(id);
   }
 
-  public List<CourseResponse> getAll() {
+  public List<CourseDTO> getAll() {
     return repo.findAll().stream().map(courseMapper::toDTO).toList();
   }
 
-  public Integer create(CourseRequest newCourse) {
+  public Integer create(CourseCreateDTO newCourse) {
     return repo.save(courseMapper.toEntity(newCourse)).getId();
   }
 }

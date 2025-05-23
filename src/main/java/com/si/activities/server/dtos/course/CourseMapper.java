@@ -7,15 +7,15 @@ import org.springframework.stereotype.Component;
 @Component
 public class CourseMapper {
 
-  public CourseResponse toDTO(Course c) {
+  public CourseDTO toDTO(Course c) {
     if (c == null) {
       return null;
     }
 
-    return new CourseResponse(c.getId(), c.getName(), c.getPeriodsNumber());
+    return new CourseDTO(c.getId(), c.getName(), c.getPeriodsNumber());
   }
 
-  public Course toEntity(CourseRequest cr) {
+  public Course toEntity(CourseCreateDTO cr) {
     if (cr == null) {
       return null;
     }

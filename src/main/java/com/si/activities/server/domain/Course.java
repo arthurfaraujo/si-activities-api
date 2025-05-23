@@ -36,4 +36,8 @@ public class Course {
   @JsonBackReference
   @OneToMany(mappedBy = "course")
   private Set<User> users = new HashSet<User>();
+
+  @JsonBackReference
+  @OneToMany(mappedBy = "course")
+  private Set<Subject> subjects = new HashSet<Subject>();
 }
