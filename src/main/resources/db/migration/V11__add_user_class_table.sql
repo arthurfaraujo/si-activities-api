@@ -1,6 +1,7 @@
 CREATE TABLE user_class (
   user_id INT NOT NULL,
   class_id INT NOT NULL,
+  enroll_date DATE DEFAULT CURRENT_DATE,
   CONSTRAINT fk_user_class_user_id FOREIGN KEY (user_id) REFERENCES users (id) 
     ON UPDATE CASCADE,
   CONSTRAINT fk_user_class_class_id FOREIGN KEY (class_id) REFERENCES class (id)
